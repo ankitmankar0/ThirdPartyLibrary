@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 using System.IO;
 using CsvHelper;
+using Newtonsoft.Json;
 
 namespace TPLProject
 {
-    public class CsvHandler
+    public class ReadCsvAndWriteJason
     {
-        public static void ImplementCSVDataHandling()
+        public static void ImplementCSVToJson()
         {
             string importFilePath = @"C:\Users\ankit\Desktop\bridgelab\.Net\Workshop\TPLProject\TPLProject\Utility\addresses.csv";
-            string exportFilePath = @"C:\Users\ankit\Desktop\bridgelab\.Net\Workshop\TPLProject\TPLProject\Utility\export.csv";
+            string exportFilePath = @"C:\Users\ankit\Desktop\bridgelab\.Net\Workshop\TPLProject\TPLProject\Utility\export.json";
 
             using (var reader = new StreamReader(importFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -28,12 +30,13 @@ namespace TPLProject
                     Console.Write("\t" + addressData.Code);
                     Console.Write("\n");
                 }
-                Console.WriteLine("\n******** Now reading from csv and write into csv file ");
+                Console.WriteLine("\n******** Now reading from csv and write into Jsonfile ");
 
-                using (var writer = new StreamWriter(exportFilePath))
-                using (var csvExport = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                { 
-                csvExport.WriteRecords(record); 
+                JsonSerializer serializer = new JsonSerializer();
+                using (StreamWriter sw= new StreamWriter(exportFilePath))
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(writer, record);
                 }
             }
         }

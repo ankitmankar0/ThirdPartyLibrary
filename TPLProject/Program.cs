@@ -6,8 +6,8 @@ namespace TPLProject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Read data from csv $ write in csv");
-            CsvHandler.ImplementCSVDataHandling();
+            Console.WriteLine("Read data from csv $ write in Json");
+            ReadCsvAndWriteJason.ImplementCSVToJson();
             Console.WriteLine();
         }
     }
